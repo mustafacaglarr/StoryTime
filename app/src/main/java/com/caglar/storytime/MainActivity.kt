@@ -4,12 +4,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import com.caglar.storytime.data.model.getVoices
+import com.caglar.storytime.data.model.textToSpeech
+import com.caglar.storytime.ui.navigation.MyAppNavHost
 import com.caglar.storytime.ui.screens.category.CategoryScreen
+import com.caglar.storytime.ui.screens.category.ChooseScreen
 import com.caglar.storytime.ui.screens.character.CartoonScreen
 import com.caglar.storytime.ui.screens.character.HeroScreen
+import com.caglar.storytime.ui.screens.splash.SplashScreen
 import com.caglar.storytime.ui.screens.story.StoryScreen
+import com.caglar.storytime.ui.screens.story.VoiceScreen
 import com.caglar.storytime.ui.theme.StoryTimeTheme
 import com.caglar.storytime.viewmodel.StoryViewModel
+
 
 class MainActivity : ComponentActivity() {
     private val storyViewModel: StoryViewModel by viewModels()
@@ -19,10 +28,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             StoryTimeTheme {
-                // Call the StoryScreen composable and pass the ViewModel
-                //StoryScreen(viewModel = storyViewModel)
-                //CategoryScreen(viewModel = storyViewModel)
-                HeroScreen()
+
+                val storyViewModel = StoryViewModel()
+                MyAppNavHost(storyViewModel = storyViewModel)
+
+
+
             }
         }
     }
